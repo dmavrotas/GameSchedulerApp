@@ -1,11 +1,13 @@
 ﻿angular.modules('starter.services', [])
 
+  //Service call factory for GamesDB. Subject to change if the API provides a new functionality in the future.
+
   .constant('SERVICEBASE', 'http://thegamesdb.net/api/')
 
 .factory('GetGamesList', function ($scope, $http, $name) {
-  $http.get(SERVICEBASE+'GetGamesList.php?name='+$name).then(function(resp){
+  $http.get(SERVICEBASE +'GetGamesList.php?name=' + $name).then(function(resp){
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function(err) {
     console.error('ERROR', err)
     return null;
@@ -17,7 +19,7 @@
   if ($platform != null) request = SERVICEBASE + 'GetGame.php?' + $field + '=' + $name + '&platform=' + $platform
   $http.get(request).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -27,7 +29,7 @@
 .factory('GetArt', function ($scope, $http, $id) {
   $http.get(SERVICEBASE + 'GetArt.php?id=' + $id).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -37,7 +39,7 @@
 .factory('GetPlatformsList', function ($scope, $http) {
   $http.get(SERVICEBASE + 'GetPlatformsList.php?').then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -47,7 +49,7 @@
 .factory('GetPlatform', function ($scope, $http, $id) {
   $http.get(SERVICEBASE + 'GetPlatform.php?id=' + $id).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -59,7 +61,7 @@
   if ($id != null) request = SERVICEBASE + 'GetPlatformGames.php?id=' + $id
   $http.get(request).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -69,7 +71,7 @@
 .factory('PlatformGames', function ($scope, $http, $platform) {
   $http.get(SERVICEBASE + 'PlatformGames.php?platform=' + $platform).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -79,7 +81,7 @@
 .factory('Updates', function ($scope, $http, $time) {
   $http.get(SERVICEBASE + 'Updates.php?time=' + $time).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -92,7 +94,7 @@
 
   $http.get(request).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
@@ -105,7 +107,7 @@
   if ($gameId != null) request += '&gameid=' + $gameId
   $http.get(request).then(function (resp) {
     console.log('SUCCESS', resp)
-    return $resp.data
+    return $resp.data;
   }, function (err) {
     console.error('ERROR', err)
     return null;
