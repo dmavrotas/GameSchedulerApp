@@ -1,4 +1,4 @@
-angular.module('gamescheduler.controllers', [])
+angular.module('gamescheduler')
 
 .controller('DashCtrl', function($scope) {})
 
@@ -9,16 +9,18 @@ angular.module('gamescheduler.controllers', [])
   }
 })
 
-.controller('ChatDetailCtrl', function ($scope, $stateParams, Chats, GamesDB) {
+.controller('ChatDetailCtrl',['$scope', '$stateParams', 'Chats', 'GamesDB', function ($scope, $stateParams, Chats, GamesDB) {
   $scope.chat = Chats.get($stateParams.chatId);
-  //GamesDB.GetPlatformsList()
-  //  .success(function (resp) {
-  //    console.log(resp.data);
-  //  })
-  //  .error(function (error) {
-  //    console.log(error.message);
-  //  });
-})
+  GamesDB.GetPlatformsList()
+    .success(function (resp) {
+      var x2js = new X2JS();
+      var jsonObject = x2js.xml_str2json(resp);
+      console.log(jsonObject);
+    })
+    .error(function (error) {
+      console.log("error");
+    });
+}])
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {

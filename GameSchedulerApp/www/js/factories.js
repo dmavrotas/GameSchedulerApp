@@ -1,115 +1,60 @@
-﻿angular.modules('starter.services', [])
+﻿angular.module('gamescheduler')
 
-  //Service call factory for GamesDB. Subject to change if the API provides a new functionality in the future.
+//Service call factory for GamesDB. Subject to change if the API provides a new functionality in the future.
 
-  .constant('SERVICEBASE', 'http://thegamesdb.net/api/')
+.constant("SERVICEBASE", "http://thegamesdb.net/api/")
 
-.factory('GetGamesList', function ($scope, $http, $name) {
-  $http.get(SERVICEBASE +'GetGamesList.php?name=' + $name).then(function(resp){
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function(err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+.factory('GamesDB', ['$http', 'SERVICEBASE', function ($http, SERVICEBASE) {
+  var GamesDB = {};
 
-.factory('GetGame', function ($scope, $http, $field, $platform) {
-  var request = SERVICEBASE + 'GetGame.php?' + $field + '=' + $name
-  if ($platform != null) request = SERVICEBASE + 'GetGame.php?' + $field + '=' + $name + '&platform=' + $platform
-  $http.get(request).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.GetGamesList = function(gameName) {
+    return $http.get(SERVICEBASE + 'GetGamesList.php?name=' + gameName);
+  };
 
-.factory('GetArt', function ($scope, $http, $id) {
-  $http.get(SERVICEBASE + 'GetArt.php?id=' + $id).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.GetGame = function(searchField, gamingPlatform, gameName) {
+    var request = SERVICEBASE + 'GetGame.php?' + searchField + '=' + gameName;
+    if(platform != null) request += '&platform=' + gamingPlatform;
+    return $http.get(request);
+  };
 
-.factory('GetPlatformsList', function ($scope, $http) {
-  $http.get(SERVICEBASE + 'GetPlatformsList.php?').then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.GetArt = function(gameID) {
+    return $http.get(SERVICEBASE + 'GetArt.php?id=' + gameID);
+  };
 
-.factory('GetPlatform', function ($scope, $http, $id) {
-  $http.get(SERVICEBASE + 'GetPlatform.php?id=' + $id).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.GetPlatformsList = function() {
+    return $http.get(SERVICEBASE + 'GetPlatformsList.php?');
+  };
 
-.factory('GetPlatformGames', function ($scope, $http, $id) {
-  var request = SERVICEBASE + 'GetPlatformGames.php?'
-  if ($id != null) request = SERVICEBASE + 'GetPlatformGames.php?id=' + $id
-  $http.get(request).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.GetPlatform = function(gameID) {
+    return $http.get(SERVICEBASE + 'GetPlatform.php?id=' + gameID);
+  };
 
-.factory('PlatformGames', function ($scope, $http, $platform) {
-  $http.get(SERVICEBASE + 'PlatformGames.php?platform=' + $platform).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.GetPlatformGames = function(platformID) {
+    var request = SERVICEBASE + 'GetPlatformGames.php?';
+    if(platformID != null) request += 'id=' + gameID;
+    return $http.get(request);
+  };
 
-.factory('Updates', function ($scope, $http, $time) {
-  $http.get(SERVICEBASE + 'Updates.php?time=' + $time).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.PlatformGames = function(platform) {
+    return $http.get(SERVICEBASE + 'PlatformGames.php?platform=' + platform);
+  };
 
-.factory('UserRating', function ($scope, $http, $accountId, $itemId, $rating) {
-  var request = SERVICEBASE + 'User_Rating.php?accountid=' + $accountId + '&itemid=' + $itemId
-  if (request != null) request = SERVICEBASE + 'UserRating.php?accountid=' + $accountId + '&itemid=' + $itemId + '&rating'
+  GamesDB.Updates = function(timeElapsed) {
+    return $http.get(SERVICEBASE + 'Updates.php?time=' + timeElapsed);
+  };
 
-  $http.get(request).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-})
+  GamesDB.UserRating = function(accountID, itemID, rating) {
+    var request = SERVICEBASE + 'User_Rating.php?accountid=' + accountID + '&itemid=' + itemID;
+    if(rating) request += '&rating=' + rating;
+    return $http.get(request);
+  };
 
-.factory('UserFavorites', function ($scope, $http, $accountId, $type, $gameId) {
-  var request = SERVICEBASE + 'User_Favorites.php?accountid=' + $accountId
-  if ($type != null) request = SERVICEBASE + 'User_Favorites.php?accountid=' + $accountId + '&type=' + $type
-  if ($gameId != null) request += '&gameid=' + $gameId
-  $http.get(request).then(function (resp) {
-    console.log('SUCCESS', resp)
-    return $resp.data;
-  }, function (err) {
-    console.error('ERROR', err)
-    return null;
-  })
-});
+  GamesDB.UserFavorites = function(accountID, type, gameID) {
+    var request = SERVICEBASE + 'User_Favorites.php?accountid=' + accountID;
+    if(type != null) request += '&type=' + type;
+    if(gameID != null) request += '&gameid=' + gameID;
+    return $http.get(request);
+  };
+
+  return GamesDB;
+}]);
