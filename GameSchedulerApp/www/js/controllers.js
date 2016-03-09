@@ -9,17 +9,17 @@ angular.module('gamescheduler')
   }
 })
 
-.controller('ChatDetailCtrl',['$scope', '$stateParams', 'Chats', 'GamesDB', function ($scope, $stateParams, Chats, GamesDB) {
+.controller('ChatDetailCtrl',['$scope', '$stateParams', 'Chats', function ($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
-  GamesDB.GetPlatformsList()
-    .success(function (resp) {
-      var x2js = new X2JS();
-      var jsonObject = x2js.xml_str2json(resp);
-      console.log(jsonObject.Data);
-    })
-    .error(function (error) {
-      console.log("error");
-    });
+  //GamesDB.GetPlatformsList()
+  //  .success(function (resp) {
+  //    var x2js = new X2JS();
+  //    var jsonObject = x2js.xml_str2json(resp);
+  //    console.log(jsonObject.Data);
+  //  })
+  //  .error(function (error) {
+  //    console.log("error");
+  //  });
 }])
 
 .controller('AccountCtrl', function($scope) {
