@@ -6,7 +6,5 @@
 .factory('PSNDB', ['$http', 'SERVICEBASEPSN'], function ($http, SERVICEBASEPSN) {
   var PSNDB = {};
 
-
-
   return PSNDB;
 });

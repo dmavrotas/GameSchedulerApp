@@ -9,7 +9,7 @@ angular.module('gamescheduler')
   }
 })
 
-.controller('ChatDetailCtrl',['$scope', '$stateParams', 'Chats', function ($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl',['$scope', '$stateParams', 'Chats', 'GamesDB', function ($scope, $stateParams, Chats, GamesDB) {
   $scope.chat = Chats.get($stateParams.chatId);
   //GamesDB.GetPlatformsList()
   //  .success(function (resp) {
