@@ -4,7 +4,7 @@
 
 .constant("SERVICEGAMESDBBASE", "http://thegamesdb.net/api/")
 
-.factory('GamesDB', ['$http', 'SERVICEBASE', function ($http, SERVICEGAMESDBBASE) {
+.factory('GamesDB', ['$http', 'SERVICEGAMESDBBASE', function ($http, SERVICEGAMESDBBASE) {
   var GamesDB = {};
 
   GamesDB.GetGamesList = function(gameName) {
